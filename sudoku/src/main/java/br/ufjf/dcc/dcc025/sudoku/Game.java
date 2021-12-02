@@ -35,16 +35,16 @@ public class Game {
         } while (gameMode != 1 && gameMode != 2);
 
         switch (gameMode) {
+            // Random Game
             case 1:
-                // Random Game
                 System.out.println("Quantos números deseja sortear para iniciar? (escreva um valor de 1 a 81)");
                 int startingNumbersAmount = keyboard.nextInt();
 
                 this.createBoard(startingNumbersAmount);
                 break;
 
+            // Game defined by the user
             case 2:
-                // Game defined by the user
                 this.createBoard();
                 break;
 
@@ -156,6 +156,20 @@ public class Game {
 
         switch (gameMode) {
             case 1:
+                System.out.println("Linha:");
+                int row = keyboard.nextInt();
+
+                System.out.println("Coluna:");
+                int column = keyboard.nextInt();
+
+                System.out.println("Valor:");
+                int value = keyboard.nextInt();
+
+                boolean inserted = this.board.insertValue(row, column, value);
+
+                if (!inserted) {
+                    System.out.println("Impossível inserir o valor " + value + " na posição (linha: " + row + ", coluna: " + column + ")");
+                }
                 
                 break;
         
