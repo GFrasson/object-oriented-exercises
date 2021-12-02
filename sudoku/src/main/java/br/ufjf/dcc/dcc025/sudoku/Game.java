@@ -16,7 +16,7 @@ public class Game {
         this.mainMenu();
         this.board.displayBoard();
     }
-
+    
     private void mainMenu() {
         Scanner keyboard = new Scanner(System.in);
         int gameMode;
@@ -92,44 +92,87 @@ public class Game {
 
     private void createBoard() {
         Scanner keyboard = new Scanner(System.in);
-
+        int row = 0;
+        int column = 0;
+        int value = 0;
+        
         System.out.println("Digite os valores iniciais no formato (linha,coluna,valor):");
-        String input = keyboard.nextLine();
-        keyboard.close();
 
         // Read entries
-        for (int i = 0; i < input.length(); i++) {
-            // Find pattern (row, column, value)
-            if (input.charAt(i) == '(') {
-                int closeIndex = input.indexOf(")", i);
-                String numbers = input.substring(i + 1, closeIndex);
-                String[] numbersArray = numbers.trim().split(",");
+        while (row != -1 && column != -1 && value != -1) {
+            String input = keyboard.nextLine();
 
-                try {
-                    int row = Integer.parseInt(numbersArray[0].trim());
-                    int column = Integer.parseInt(numbersArray[1].trim());
-                    int value = Integer.parseInt(numbersArray[2].trim());
-
-                    if (row == -1 && column == -1 && value == -1) {
-                        // Stop inserting
-                        break;
-                    } else {
-                        // Insert value
-                        boolean inserted = this.board.insertValue(row, column, value);
-
-                        if (inserted) {
-                            this.board.freezePosition(row, column);
+            for (int i = 0; i < input.length(); i++) {
+                // Find pattern (row, column, value)
+                if (input.charAt(i) == '(') {
+                    int closeIndex = input.indexOf(")", i);
+                    String numbers = input.substring(i + 1, closeIndex);
+                    String[] numbersArray = numbers.trim().split(",");
+    
+                    try {
+                        row = Integer.parseInt(numbersArray[0].trim());
+                        column = Integer.parseInt(numbersArray[1].trim());
+                        value = Integer.parseInt(numbersArray[2].trim());
+    
+                        if (row == -1 && column == -1 && value == -1) {
+                            // Stop inserting
+                            break;
                         } else {
-                            // Error
-                            System.out.println("Impossível inserir o valor " + value + " na posição (linha: " + row + ", coluna: " + column + ")");
+                            // Insert value
+                            boolean inserted = this.board.insertValue(row, column, value);
+    
+                            if (inserted) {
+                                this.board.freezePosition(row, column);
+                            } else {
+                                // Error
+                                System.out.println("Impossível inserir o valor " + value + " na posição (linha: " + row + ", coluna: " + column + ")");
+                            }
                         }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Os valores são inválidos");
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Os valores são inválidos");
+    
+                    i = closeIndex;
                 }
-
-                i = closeIndex;
             }
+        }
+
+        keyboard.close();
+    }
+
+    private void gameMenu() {
+        Scanner keyboard = new Scanner(System.in);
+        int gameMode;
+
+        do {
+            System.out.println("Escolha uma opção para jogar");
+            System.out.println("[1] Adicionar jogada");
+            System.out.println("[2] Remover jogada");
+            System.out.println("[3] Verificar");
+            System.out.println("[4] Sair");
+            gameMode = keyboard.nextInt();
+
+        } while (gameMode != 1 && gameMode != 2 && gameMode != 3 && gameMode != 4);
+
+        switch (gameMode) {
+            case 1:
+                
+                break;
+        
+            case 2:
+                
+                break;
+            
+            case 3:
+                
+                break;
+            
+            case 4:
+                
+                break;
+
+            default:
+                break;
         }
     }
 }
