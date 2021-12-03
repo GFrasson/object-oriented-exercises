@@ -30,6 +30,10 @@ public class Cell {
         }
     }
 
+    public void removeValue() {
+        this.value = 0;
+    }
+
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
@@ -38,5 +42,5 @@ public class Cell {
 
     public static boolean isValidValue(int value) {
         return value >= 1 && value <= 9;
-    }
+    }    
 }
